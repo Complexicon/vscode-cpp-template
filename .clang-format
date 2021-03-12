@@ -1,7 +1,11 @@
-﻿---
+---
 BasedOnStyle: LLVM
+AlignEscapedNewlines: DontAlign
 AllowShortBlocksOnASingleLine: 'true'
+AllowShortCaseLabelsOnASingleLine: 'true'
 AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: 'true'
 BreakBeforeBraces: Attach
 BreakBeforeTernaryOperators: 'false'
