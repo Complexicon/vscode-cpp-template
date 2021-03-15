@@ -3,9 +3,9 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "make test",
+			"label": "make",
 			"command": "mingw32-make",
-			"args": ["test"],
+			"args": [],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
@@ -19,9 +19,11 @@
 		},
 		{
 			"type": "cppbuild",
-			"label": "make",
+			"label": "make test",
 			"command": "mingw32-make",
-			"args": [],
+			"args": [
+				"test"
+			],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},

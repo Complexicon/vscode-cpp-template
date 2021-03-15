@@ -1,5 +1,5 @@
 LIBS=
-SRC=
+SRC=main.cpp
 DEBUG:=y
 NAME:=out
 IDIR=include
