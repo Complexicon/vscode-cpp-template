@@ -10,12 +10,12 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/out.exe",
 			"args": [],
-			"stopAtEntry": true,
+			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
-			"externalConsole": true,
+			"externalConsole": false,
 			"MIMode": "gdb",
-			"miDebuggerPath": "gdb",
+			"miDebuggerPath": "gdb64",
 			"preLaunchTask": "make",
 			"setupCommands": [
 				{
@@ -31,12 +31,12 @@
 			"request": "launch",
 			"program": "${workspaceFolder}/test.exe",
 			"args": [],
-			"stopAtEntry": true,
+			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"environment": [],
-			"externalConsole": true,
+			"externalConsole": false,
 			"MIMode": "gdb",
-			"miDebuggerPath": "gdb",
+			"miDebuggerPath": "gdb64",
 			"preLaunchTask": "make test",
 			"setupCommands": [
 				{
