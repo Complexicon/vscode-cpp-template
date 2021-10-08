@@ -1,5 +1,5 @@
 LIBS=
-SRC=main.cpp
+SRC=main.c
 DEBUG:=y
 NAME:=out
 IDIR=include
@@ -9,7 +9,7 @@ OPTIMIZELEVEL:=2
 CFLAGS:=
 LFLAGS:=
 SHARED=n
-CC=g++
+CC=gcc
 TESTFILENAME=test
 
 ifeq ($(DEBUG),y)
@@ -27,9 +27,9 @@ endif
 
 ifeq ($(SHARED),y) 
 	LFLAGS+=-shared
-	OUTFILE=$(NAME).dll
+	OUTFILE=$(NAME).so
 else
-	OUTFILE=$(NAME).exe
+	OUTFILE=$(NAME)
 endif
 
 LDIR?=.
@@ -39,25 +39,25 @@ SRCDIR=src
 
 .PHONY: clean fresh fresh-test test all status
 
-$(OUTFILE): $(patsubst %.cpp,$(ODIR)/%.o,$(SRC))
+$(OUTFILE): $(patsubst %.c,$(ODIR)/%.o,$(SRC))
 	@echo linking $(OUTFILE)...
 	@$(CC) -o $(OUTFILE) $^ $(32BITFLAG) $(LFLAGS) -L$(LDIR) $(patsubst %,-l%,$(LIBS))
 
  $(ODIR):
 	@mkdir $@
 
-$(TESTFILENAME).exe: $(patsubst %.cpp,$(ODIR)/%.o,test.cpp)
-	@echo building $(TESTFILENAME).exe...
-	@$(CC) -o $(TESTFILENAME).exe $(32BITFLAG) $^ -L. -l$(NAME)
+$(TESTFILENAME): $(patsubst %.c,$(ODIR)/%.o,test.c)
+	@echo building $(TESTFILENAME)
+	@$(CC) -o $(TESTFILENAME) $(32BITFLAG) $^ -L. -l$(NAME)
 
 -include $(ODIR)/.depend
 
-$(ODIR)/.depend: $(patsubst %.cpp,$(SRCDIR)/%.cpp,$(SRC))
+$(ODIR)/.depend: $(patsubst %.c,$(SRCDIR)/%.c,$(SRC)) | $(ODIR)
 	@echo building dependencies
-	@-del /s /q "$@"
-	@$(foreach X,$^,$(CC) $(CFLAGS) -I$(IDIR) -I$(LDIR) -MT $(patsubst $(SRCDIR)/%.cpp,$(ODIR)/%.o,$(X)) -MM $(X) >> "$@" && ) echo done
+	@-rm -rf "$@"
+	@$(foreach X,$^,$(CC) $(CFLAGS) -I$(IDIR) -I$(LDIR) -MT $(patsubst $(SRCDIR)/%.c,$(ODIR)/%.o,$(X)) -MM $(X) >> "$@" && ) echo done
 
-$(ODIR)/%.o: $(SRCDIR)/%.cpp | $(ODIR)
+$(ODIR)/%.o: $(SRCDIR)/%.c | $(ODIR)
 	@echo $(patsubst $(ODIR)/%,%,$@):
 	@$(CC) -c -o $@ $< $(32BITFLAG) $(CFLAGS) -I$(IDIR) -I$(LDIR)
 
@@ -76,14 +76,14 @@ endif
 	@echo -------------------------------------------------
 
 all: status $(OUTFILE)
-test: all $(TESTFILENAME).exe
+test: all $(TESTFILENAME)
 fresh: clrscr clean all
 fresh-test: clrscr clean test
 
 clrscr:
-	@cls
+	@clear
 
 clean:
 	@echo cleaning up...
-	@-rmdir /s /q $(ODIR)
-	@-del /s /q $(OUTFILE)
+	@-rm -rf $(ODIR)
+	@-rm -rf $(OUTFILE)
