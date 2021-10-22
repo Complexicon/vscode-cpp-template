@@ -4,7 +4,7 @@
 		{
 			"type": "cppbuild",
 			"label": "make",
-			"command": "mingw32-make",
+			"command": "make",
 			"args": [],
 			"options": {
 				"cwd": "${workspaceFolder}"
@@ -20,7 +20,7 @@
 		{
 			"type": "cppbuild",
 			"label": "make test",
-			"command": "mingw32-make",
+			"command": "make",
 			"args": [
 				"test"
 			],
